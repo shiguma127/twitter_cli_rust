@@ -3,7 +3,16 @@ extern crate clap;
 
 use clap::{app_from_crate, Arg};
 use egg_mode;
+use serde::Deserialize;
 use std::env;
+
+#[derive(Deserialize)]
+struct Config {
+    api_key: String,
+    api_secret_key: String,
+    access_token: String,
+    access_token_secret: String,
+}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -28,10 +37,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if let Some(o) = matches.value_of("Text") {
         tweet_text = o.to_string();
     }
-    let api_key = env::var("API_key").expect("not exist");
-    let api_secret_key = env::var("API_Secret_Key").expect("not exist");
-    let access_token = env::var("Access_Token").expect("not exist");
-    let access_token_secret = env::var("Access_Token_Secret").expect("not exist");
+    let file = std::fs::read_to_string("Config.toml")?;
+    let config: Config = toml::from_str(&file)?;
+    let api_key = config.api_key;
+    let api_secret_key = config.api_secret_key;
+    let access_token = config.access_token;
+    let access_token_secret = config.access_token_secret;
     let api_token = egg_mode::KeyPair::new(api_key, api_secret_key);
     let acc_token = egg_mode::KeyPair::new(access_token, access_token_secret);
     let token = egg_mode::Token::Access {

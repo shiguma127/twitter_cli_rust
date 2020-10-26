@@ -11,3 +11,5 @@ dotenv = "0.15.0"
 egg-mode = "0.15"
 tokio = { version = "0.2.8", features = ["time", "rt-core", "macros"] }
 clap = "2.33.3"
+toml = "0.5.5"
+serde = { version = "1.0.104", features = ["derive"] }
