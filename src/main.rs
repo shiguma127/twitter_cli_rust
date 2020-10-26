@@ -5,6 +5,7 @@ use clap::{app_from_crate, Arg};
 use egg_mode;
 use serde::Deserialize;
 use std::env;
+use std::path::PathBuf;
 
 #[derive(Deserialize)]
 struct Config {
@@ -37,7 +38,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if let Some(o) = matches.value_of("Text") {
         tweet_text = o.to_string();
     }
-    let file = std::fs::read_to_string("Config.toml")?;
+    let file = std::fs::read_to_string(get_config_path()?)?;
     let config: Config = toml::from_str(&file)?;
     let api_key = config.api_key;
     let api_secret_key = config.api_secret_key;
@@ -52,4 +53,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let tweet = egg_mode::tweet::DraftTweet::new(tweet_text.clone());
     tweet.send(&token).await?;
     Ok(())
+}
+fn get_config_path() -> Result<PathBuf, Box<dyn std::error::Error>> {
+    match env::current_exe() {
+        Ok(mut path) => {
+            path.pop();
+            path.push("Config.toml");
+            Ok(path)
+        }
+        Err(_) => Err(format!("error occurred while getting current_exe"))?,
+    }
 }
