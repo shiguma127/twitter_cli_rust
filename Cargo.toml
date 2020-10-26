@@ -1,0 +1,13 @@
+[package]
+name = "twitter_cli_rust"
+version = "0.1.0"
+authors = ["shiguma127 <shiguma127@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dotenv = "0.15.0"
+egg-mode = "0.15"
+tokio = { version = "0.2.8", features = ["time", "rt-core", "macros"] }
+clap = "2.33.3"
