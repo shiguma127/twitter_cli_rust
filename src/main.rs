@@ -51,7 +51,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         access: acc_token,
     };
     let tweet = egg_mode::tweet::DraftTweet::new(tweet_text.clone());
-    tweet.send(&token).await?;
+    match tweet.send(&token).await {
+        Ok(_) => println!("{}", "hi"),
+        Err(err) => println!("{}", err),
+    }
+    //tweet.send(&token).await?;
     Ok(())
 }
 fn get_config_path() -> Result<PathBuf, Box<dyn std::error::Error>> {
