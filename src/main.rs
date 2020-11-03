@@ -52,7 +52,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     };
     let tweet = egg_mode::tweet::DraftTweet::new(tweet_text.clone());
     match tweet.send(&token).await {
-        Ok(_) => println!("{}", "hi"),
+        Ok(_) => {} //ignore
         Err(err) => println!("{}", err),
     }
     //tweet.send(&token).await?;
