@@ -1,0 +1,48 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'twitter_cli_rust'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=twitter_cli_rust",
+                    "--package=twitter_cli_rust"
+                ],
+                "filter": {
+                    "name": "twitter_cli_rust",
+                    "kind": "bin"
+                }
+            },
+            "args": [
+                "-t aaadw",
+                "-m=C:\\Users\\shiguma127\\Pictures\\Icon.jpg"
+            ],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'twitter_cli_rust'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=twitter_cli_rust",
+                    "--package=twitter_cli_rust"
+                ],
+                "filter": {
+                    "name": "twitter_cli_rust",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
